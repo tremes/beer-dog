@@ -1,17 +1,15 @@
 package tremes.beerdog.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Id;
 
 /**
  * @author Tomas Remes
  */
 @Embeddable
-public class Address {
-
-    @Id
-    private int id;
+public class Address implements Serializable {
 
     @Column(name = "STREET", nullable = false)
     private String street;
@@ -36,14 +34,6 @@ public class Address {
 
     public void setStreet(String street) {
         this.street = street;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getZipcode() {

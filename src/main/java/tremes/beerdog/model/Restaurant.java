@@ -1,5 +1,6 @@
 package tremes.beerdog.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +15,7 @@ import javax.persistence.OneToMany;
  * @author Tomas Remes
  */
 @Entity
-public class Restaurant {
+public class Restaurant implements Serializable{
 
     @Id
     private int id;
