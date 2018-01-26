@@ -1,17 +1,21 @@
 package tremes.beerdog.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-/**
- * @author Tomas Remes
- */
 @Entity
-public class Beer {
+//@Table(name = "beer")
+public class Beer implements Serializable {
 
     @Id
-    private int id;
+    @Column(name = "BEER_ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id = null;
 
     @Column(name = "NAME", nullable = false)
     private String name;
@@ -31,6 +35,14 @@ public class Beer {
     @Column(name = "BREW")
     private String brewery;
 
+    public Beer(){
+    }
+
+    public Beer(String name, String brewery){
+        this.name = name;
+        this.brewery = brewery;
+    }
+
     public String getBrewery() {
         return brewery;
     }
@@ -39,7 +51,7 @@ public class Beer {
         this.brewery = brewery;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -81,6 +93,44 @@ public class Beer {
 
     public void setDegrees(int degrees) {
         this.degrees = degrees;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((brewery == null) ? 0 : brewery.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Beer other = (Beer) obj;
+        if (name == null) {
+            if (other.name != null) {
+                return false;
+            }
+        } else if (!name.equals(other.name)) {
+            return false;
+        }
+        if (brewery == null) {
+            if (other.brewery != null) {
+                return false;
+            }
+        } else if (!brewery.equals(other.brewery)) {
+            return false;
+        }
+        return true;
     }
 
 }
