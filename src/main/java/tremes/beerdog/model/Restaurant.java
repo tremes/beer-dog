@@ -6,15 +6,20 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
-//@Entity
+@Entity
 public class Restaurant implements Serializable{
 
     @Id
-    private int id;
+    @Column(name = "RESTAURANT_ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Embedded
     private Address address;
@@ -22,11 +27,19 @@ public class Restaurant implements Serializable{
     @Column(name = "name")
     private String name;
 
-    @OneToMany
-    @JoinColumn(name = "BEER_ID")
+    // bi-directional relationship
+    @OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER)
     private Set<Beer> beers = new HashSet<Beer>();
 
-    public int getId() {
+    public Restaurant(){
+    }
+
+    public Restaurant(String name, Address address) {
+        this.name = name;
+        this.address = address;
+    }
+
+    public Long getId() {
         return id;
     }
 

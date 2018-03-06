@@ -16,7 +16,7 @@ public class BeerService implements Serializable {
 
   @PersistenceContext EntityManager em;
 
-  public void createBeer(Beer beer) {
+  public void addNew(Beer beer) {
     em.persist(beer);
   }
 

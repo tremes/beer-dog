@@ -7,9 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
-//@Table(name = "beer")
 public class Beer implements Serializable {
 
     @Id
@@ -35,12 +36,17 @@ public class Beer implements Serializable {
     @Column(name = "BREW")
     private String brewery;
 
+    @ManyToOne
+    @JoinColumn(name = "RESTAURANT_ID", nullable = true)
+    private Restaurant restaurant;
+
     public Beer(){
     }
 
-    public Beer(String name, String brewery){
+    public Beer(String name, String brewery, Restaurant restaurant){
         this.name = name;
         this.brewery = brewery;
+        this.restaurant = restaurant;
     }
 
     public String getBrewery() {
