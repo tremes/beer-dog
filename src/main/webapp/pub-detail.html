@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Add new beer</title>
+    <meta charset="UTF-8">
+    <title>Thirsty Beer Dog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="./css/lib/bootstrap.min.css">
     <script src="./js/jquery-3.3.1.min.js"></script>
 </head>
@@ -18,14 +20,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+                <!--<a class="navbar-brand" href="#">Brand</a>-->
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="index.html">Home<span class="sr-only">(current)</span></a></li>
-                    <li><a href="new-restaurant.html">Add new Pub</a></li>
-                    <li class="active"><a href="new-beer.html">Add new Beer</a></li>
+                    <li><a href="./index.html">Home<span class="sr-only">(current)</span></a></li>
+                    <li><a href="./new-restaurant.html">Add new Pub</a></li>
+                    <li><a href="./new-beer.html">Add new Beer</a></li>
                 </ul>
                 <!--<form class="navbar-form navbar-left">-->
                 <!--<div class="form-group">-->
@@ -34,36 +37,22 @@
                 <!--<button type="submit" class="btn btn-default">Submit</button>-->
                 <!--</form>-->
                 <!--<ul class="nav navbar-nav navbar-right">-->
-                <!--<li><a href="#">Link</a></li>-->
+                    <!--<li><a href="#">Link</a></li>-->
                 <!--</ul>-->
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
-    <div class="row">
-        <div class="col-md-9">
-            <form class="form-horizontal" action="/beer-dog/rest/beers" method="post">
-                <div class="form-group">
-                    <label for="beerName" class="col-sm-3 control-label">Name:</label>
-                    <div class="col-sm-6">
-                        <input id="beerName" class="form-control" type="text" name="beerName" placeholder="Name">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="brewery" class="col-sm-3 control-label">Street:</label>
-                    <div class="col-sm-6">
-                        <input id="brewery" class="form-control" type="text" name="brewery" placeholder="Brewery">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-3 col-sm-6">
-                        <button type="submit" class="btn btn-primary btn-lg">Add</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+    <div class="jumbotron">
+        <h2>This is welcome page for beer dog!</h2>
     </div>
+    <div>
+        <p id="pubId"></p>
+        <p id="pubName"></p>
+
+    </div>
+
 </div>
 <script src="./js/bootstrap.min.js"></script>
-
+<script src="./js/detail-controller.js"></script>
 </body>
 </html>

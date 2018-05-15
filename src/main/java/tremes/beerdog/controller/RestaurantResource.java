@@ -1,20 +1,12 @@
 package tremes.beerdog.controller;
 
-import java.util.List;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Link;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.*;
+import javax.ws.rs.core.*;
+import java.net.URI;
+import java.sql.SQLOutput;
+import java.util.List;
 
 import tremes.beerdog.model.Address;
 import tremes.beerdog.model.Restaurant;
@@ -55,8 +47,9 @@ public class RestaurantResource {
     Restaurant newRestaurant = new Restaurant(name, newAddress);
     restaurantService.addNew(newRestaurant);
 
-    Link lnk = Link.fromUri(uriInfo.getPath()).rel("self").build();
-    return Response.seeOther(lnk.getUri()).build();
+    URI uri = uriInfo.getAbsolutePathBuilder().path(newRestaurant.getId().toString()).build();
+    Response res = Response.created(uri).build();
+    return res;
   }
 
 }
