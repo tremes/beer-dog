@@ -20,6 +20,10 @@ public class BeerService implements Serializable {
     em.persist(beer);
   }
 
+  public Beer getBeerById(Long id){
+    return em.find(Beer.class, id);
+  }
+
   public List<Beer> getBeers() {
     List<Beer> beers = em.createQuery("select b from Beer b", Beer.class).getResultList();
     return beers;

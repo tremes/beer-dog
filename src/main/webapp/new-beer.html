@@ -41,7 +41,7 @@
     </nav>
     <div class="row">
         <div class="col-md-9">
-            <form class="form-horizontal" action="/beer-dog/rest/beers" method="post">
+            <form class="form-horizontal" id="newBeerForm" action="rest/beers" method="POST">
                 <div class="form-group">
                     <label for="beerName" class="col-sm-3 control-label">Name:</label>
                     <div class="col-sm-6">
@@ -49,11 +49,19 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="brewery" class="col-sm-3 control-label">Street:</label>
+                    <label for="brewery" class="col-sm-3 control-label">Brewery:</label>
                     <div class="col-sm-6">
                         <input id="brewery" class="form-control" type="text" name="brewery" placeholder="Brewery">
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="pubs" class="col-sm-3 control-label">Pub:</label>
+                    <div class="col-sm-6">
+                        <select id="rest_id" name="pubs" class="form-control">
+                        </select>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-6">
                         <button type="submit" class="btn btn-primary btn-lg">Add</button>
@@ -64,6 +72,8 @@
     </div>
 </div>
 <script src="./js/bootstrap.min.js"></script>
+<script src="./js/functions.js"></script>
+<script src="./js/new-beer-controller.js"></script>
 
 </body>
 </html>

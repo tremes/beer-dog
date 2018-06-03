@@ -29,7 +29,7 @@ public class RestaurantResource {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/{id}")
-  public Response getConfigurationById(@PathParam("id") Integer id) {
+  public Response getRestaurantById(@PathParam("id") Integer id) {
     Restaurant restaurant = restaurantService.getRestaurantById(Long.valueOf(id));
 
     if (restaurant == null) {
