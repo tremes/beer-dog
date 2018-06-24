@@ -3,10 +3,11 @@ package tremes.beerdog.controller;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
-import javax.ws.rs.core.*;
-
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.net.URI;
-import java.sql.SQLOutput;
 import java.util.List;
 
 import tremes.beerdog.model.Beer;
@@ -25,12 +26,11 @@ public class BeerResource {
   @Context
   UriInfo uriInfo;
 
-  @GET
-  @Produces({ MediaType.APPLICATION_JSON})
-  public List<Beer> getBeers() {
-    return beerService.getBeers();
-  }
-
+  /**
+   *
+   * @param id - id of beer
+   * @return
+   */
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/{id}")
@@ -42,6 +42,23 @@ public class BeerResource {
     }
 
     return Response.status(javax.ws.rs.core.Response.Status.OK).entity(beer).build();
+  }
+
+  /**
+   *
+   * @param rest_id - id of restaurant to get the beers for
+   * @return
+   */
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  @QueryParam("rest_id")
+  public List<Beer> geBeerByRestId(@QueryParam("rest_id") Integer rest_id) {
+    if(rest_id == null){
+       return beerService.getBeers();
+    } else {
+      List<Beer> beers = beerService.getBeerByRestaurant(Long.valueOf(rest_id));
+      return beers;
+    }
   }
 
   @POST

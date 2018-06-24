@@ -1,14 +1,7 @@
 package tremes.beerdog.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class Beer implements Serializable {
@@ -36,8 +29,8 @@ public class Beer implements Serializable {
     @Column(name = "BREW")
     private String brewery;
 
-    @ManyToOne
-    @JoinColumn(name = "RESTAURANT_ID", nullable = true)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "RESTAURANT_ID", nullable = false)
     private Restaurant restaurant;
 
     public Beer(){
@@ -99,6 +92,14 @@ public class Beer implements Serializable {
 
     public void setDegrees(int degrees) {
         this.degrees = degrees;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     @Override

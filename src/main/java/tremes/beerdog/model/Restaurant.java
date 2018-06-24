@@ -1,20 +1,14 @@
 package tremes.beerdog.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Restaurant implements Serializable{
+public class Restaurant implements Serializable {
 
     @Id
     @Column(name = "RESTAURANT_ID")
@@ -28,10 +22,11 @@ public class Restaurant implements Serializable{
     private String name;
 
     // bi-directional relationship
-    @OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Beer> beers = new HashSet<Beer>();
 
-    public Restaurant(){
+    public Restaurant() {
     }
 
     public Restaurant(String name, Address address) {
