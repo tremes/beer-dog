@@ -5,8 +5,8 @@ FUNCTIONS.addNew = function(id, pageToGo){
 
     $(id).submit(function(event) {
         event.preventDefault(); //prevent default action 
-        var post_url = $(this).attr("action"); //get form action url
-        var form_data = $(this).serialize(); //Encode form elements for submission
+        let post_url = $(this).attr("action"); //get form action url
+        let form_data = $(this).serialize(); //Encode form elements for submission
               
         $.post(post_url, form_data).then(function(data, status, jqxhr){
             let location = jqxhr.getResponseHeader("location");

@@ -19,56 +19,67 @@ import tremes.beerdog.service.RestaurantService;
 @RequestScoped
 public class BeerResource {
 
-  @Inject BeerService beerService;
+    @Inject
+    BeerService beerService;
 
-  @Inject RestaurantService restaurantService;
+    @Inject
+    RestaurantService restaurantService;
 
-  @Context
-  UriInfo uriInfo;
+    @Context
+    UriInfo uriInfo;
 
-  /**
-   *
-   * @param id - id of beer
-   * @return
-   */
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  @Path("/{id}")
-  public Response geBeerById(@PathParam("id") Integer id) {
-    Beer beer = beerService.getBeerById(Long.valueOf(id));
+    /**
+     * @param id - id of beer
+     * @return
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{id}")
+    public Response geBeerById(@PathParam("id") Integer id) {
+        Beer beer = beerService.getBeerById(Long.valueOf(id));
 
-    if (beer == null) {
-      return Response.status(javax.ws.rs.core.Response.Status.NOT_FOUND).build();
+        if (beer == null) {
+            return Response.status(javax.ws.rs.core.Response.Status.NOT_FOUND).build();
+        }
+
+        return Response.status(javax.ws.rs.core.Response.Status.OK).entity(beer).build();
     }
 
-    return Response.status(javax.ws.rs.core.Response.Status.OK).entity(beer).build();
-  }
-
-  /**
-   *
-   * @param rest_id - id of restaurant to get the beers for
-   * @return
-   */
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  @QueryParam("rest_id")
-  public List<Beer> geBeerByRestId(@QueryParam("rest_id") Integer rest_id) {
-    if(rest_id == null){
-       return beerService.getBeers();
-    } else {
-      List<Beer> beers = beerService.getBeerByRestaurant(Long.valueOf(rest_id));
-      return beers;
+    /**
+     * @param rest_id - id of restaurant to get the beers for
+     * @return
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @QueryParam("rest_id")
+    public List<Beer> geBeerByRestId(@QueryParam("rest_id") Integer rest_id) {
+        if (rest_id == null) {
+            return beerService.getBeers();
+        } else {
+            List<Beer> beers = beerService.getBeerByRestaurant(Long.valueOf(rest_id));
+            return beers;
+        }
     }
-  }
 
-  @POST
-  @Produces(MediaType.APPLICATION_JSON)
-  public Response addBeer(@FormParam("beerName") String name, @FormParam("brewery") String brewery, @FormParam("pubs") Long id) {
-    Restaurant restaurant = restaurantService.getRestaurantById(id);
-    Beer beer = new Beer(name, brewery, restaurant);
-    beerService.addNew(beer);
-    URI uri = uriInfo.getAbsolutePathBuilder().path(beer.getId().toString()).build();
-    Response res = Response.created(uri).build();
-    return res;
-  }
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addBeer(@FormParam("beerName") String name, @FormParam("brewery") String brewery, @FormParam("pubs") Long id) {
+        Restaurant restaurant = restaurantService.getRestaurantById(id);
+        Beer beer = new Beer(name, brewery, restaurant);
+        beerService.addNew(beer);
+        URI uri = uriInfo.getAbsolutePathBuilder().path(beer.getId().toString()).build();
+        Response res = Response.created(uri).build();
+        return res;
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public Response removeBeer(@PathParam("id") Long id) {
+        Beer beerToRemove = beerService.getBeerById(id);
+        if (beerToRemove == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        beerService.removeBeer(beerToRemove);
+        return Response.status(Response.Status.OK).build();
+    }
 }
