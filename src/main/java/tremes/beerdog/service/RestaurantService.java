@@ -21,13 +21,19 @@ public class RestaurantService {
 
     public List<Restaurant> getRestaurants() {
         List<Restaurant> restaurants = em.createQuery("select r from Restaurant r", Restaurant.class).getResultList();
-        
         return restaurants;
     }
 
     public Restaurant getRestaurantById(Long id) {
         Restaurant restaurant = em.find(Restaurant.class, id);
         return restaurant;
+    }
+
+    public void removeRestaurant(Restaurant restaurant) {
+        if (!em.contains(restaurant)) {
+            restaurant = em.merge(restaurant);
+        }
+        em.remove(restaurant);
     }
 
 }

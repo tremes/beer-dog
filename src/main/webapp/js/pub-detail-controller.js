@@ -1,4 +1,3 @@
-console.log("Connected");
 
 $(document).ready(function() {
     const id = FUNCTIONS.getURLParameter("id");
@@ -18,4 +17,17 @@ $(document).ready(function() {
         });
     });
 
+});
+
+function redirectToPub(){
+    window.location.replace("index.html");
+}
+
+$("#removePub").click(function() {
+    let id =  FUNCTIONS.getURLParameter("id");
+    $.ajax({
+        url: "rest/restaurants/" + id,
+        type: 'DELETE',
+        success: redirectToPub,
+      });
 });

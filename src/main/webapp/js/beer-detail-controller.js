@@ -26,3 +26,7 @@ $("#removeBeer").click(function(){
         success: redirectToPub,
       });
 });
+
+$("#backToPub").click(function(){
+    redirectToPub();
+});

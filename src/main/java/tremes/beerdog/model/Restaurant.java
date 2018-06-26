@@ -22,7 +22,7 @@ public class Restaurant implements Serializable {
     private String name;
 
     // bi-directional relationship
-    @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonIgnore
     private Set<Beer> beers = new HashSet<Beer>();
 
