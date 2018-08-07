@@ -1,4 +1,7 @@
 
+
+var currentPub = {}
+
 $(document).ready(function() {
     const id = FUNCTIONS.getURLParameter("id");
 
@@ -8,6 +11,8 @@ $(document).ready(function() {
         $('#street').text(pub.address.street);
         $('#city').text(pub.address.city);  
         $('#zipcode').text(pub.address.zipcode); 
+    }).done(function(pub){
+        currentPub = pub;
     });
 
     // load beers for particular restaurant
@@ -23,11 +28,16 @@ function redirectToPub(){
     window.location.replace("index.html");
 }
 
+// delete pub button handler
 $("#removePub").click(function() {
-    let id =  FUNCTIONS.getURLParameter("id");
     $.ajax({
-        url: "rest/restaurants/" + id,
+        url: "rest/restaurants/" + currentPub.id,
         type: 'DELETE',
         success: redirectToPub,
       });
+});
+
+// add new beer button handler
+$("#addBeer").click(function() {
+    window.location.replace("new-beer.html?rest_id=" + currentPub.id);
 });

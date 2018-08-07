@@ -25,6 +25,10 @@ FUNCTIONS.getAll = function(uri){
     return $.get(uri);
 }
 
+FUNCTIONS.getById = function(url, id){
+   return $.get(url + "/" + id);
+}
+
 /**
  * Extracts and returns url param from actual url location
  * @param {*} sParam - name of the param to extract

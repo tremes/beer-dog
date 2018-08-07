@@ -19,9 +19,8 @@ function redirectToPub(){
 }
 
 $("#removeBeer").click(function(){
-    let id =  FUNCTIONS.getURLParameter("id");
     $.ajax({
-        url: "rest/beers/" + id,
+        url: "rest/beers/" + currentBeer.id,
         type: 'DELETE',
         success: redirectToPub,
       });
