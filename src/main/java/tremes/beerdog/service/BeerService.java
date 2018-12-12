@@ -41,4 +41,9 @@ public class BeerService implements Serializable {
         em.remove(beerToRemove);
 
     }
+
+    public void updateBeer(Beer beerToUpdate){
+        Beer updatedBeer = em.merge(beerToUpdate);
+        em.persist(updatedBeer);
+    }
 }

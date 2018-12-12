@@ -39,10 +39,10 @@ public class BeerResource {
         Beer beer = beerService.getBeerById(Long.valueOf(id));
 
         if (beer == null) {
-            return Response.status(javax.ws.rs.core.Response.Status.NOT_FOUND).build();
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        return Response.status(javax.ws.rs.core.Response.Status.OK).entity(beer).build();
+        return Response.status(Response.Status.OK).entity(beer).build();
     }
 
     /**
@@ -70,6 +70,18 @@ public class BeerResource {
         URI uri = uriInfo.getAbsolutePathBuilder().path(beer.getId().toString()).build();
         Response res = Response.created(uri).build();
         return res;
+    }
+
+    @PUT
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateBeer(@FormParam("beerName") String name, @FormParam("brewery") String brewery, @PathParam("id") Long id, @FormParam("pubs") Long restaurantId){
+        Beer beerToUpdate = beerService.getBeerById(id);
+        beerToUpdate.setName(name);
+        beerToUpdate.setBrewery(brewery);
+        beerToUpdate.setRestaurant(restaurantService.getRestaurantById(restaurantId));
+        beerService.updateBeer(beerToUpdate);
+        return Response.status(Response.Status.OK).entity(beerToUpdate).build();
     }
 
     @DELETE

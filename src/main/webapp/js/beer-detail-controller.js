@@ -18,6 +18,10 @@ function redirectToPub(){
     window.location.replace("pub-detail.html?id=" + currentBeer.restaurant.id);
 }
 
+$('#updateBeer').click(function(){
+    window.location.replace("update-beer.html?id=" + currentBeer.id);
+});
+
 $("#removeBeer").click(function(){
     $.ajax({
         url: "rest/beers/" + currentBeer.id,
