@@ -28,6 +28,10 @@ function redirectToPub(){
     window.location.replace("index.html");
 }
 
+$('#updatePub').click(function(){
+    window.location.replace(`update-pub.html?id=${currentPub.id}`);
+});
+
 // delete pub button handler
 $("#removePub").click(function() {
     $.ajax({

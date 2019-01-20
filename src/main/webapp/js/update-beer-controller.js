@@ -21,7 +21,6 @@ $("#updateBeerForm").submit(function(event) {
     event.preventDefault(); //prevent default action 
     let postUrl = $(this).attr("action"); //get form action url
     let formData = $(this).serialize(); //Encode form elements for submission
-    console.log("Post url is " + postUrl);  
     $.ajax({
         url:`${postUrl}/${beerId}`,
         type: 'PUT',

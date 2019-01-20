@@ -61,6 +61,13 @@ public class BeerResource {
         }
     }
 
+    /**
+     * Create a new beer
+     * @param name - name of the beer
+     * @param brewery - brewery producing/brewing the beer
+     * @param id - id of a restaurant which the beer is added to
+     * @return
+     */
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response addBeer(@FormParam("beerName") String name, @FormParam("brewery") String brewery, @FormParam("pubs") Long id) {

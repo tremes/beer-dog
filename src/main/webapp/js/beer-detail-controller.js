@@ -1,10 +1,9 @@
-console.log("Connected");
 
 var currentBeer = {};
 
 $(document).ready(function() {
     const id = FUNCTIONS.getURLParameter("id");
-    $.get("rest/beers/" + id, function(beer, status) {
+    $.get(`rest/beers/${id}`, function(beer, status) {
        $('#beerName').text(beer.name);    
        $('#brewery').text(beer.brewery);
        $('#type').text(beer.type);
@@ -15,16 +14,16 @@ $(document).ready(function() {
 });
 
 function redirectToPub(){
-    window.location.replace("pub-detail.html?id=" + currentBeer.restaurant.id);
+    window.location.replace(`pub-detail.html?id=${currentBeer.restaurant.id}`);
 }
 
 $('#updateBeer').click(function(){
-    window.location.replace("update-beer.html?id=" + currentBeer.id);
+    window.location.replace(`update-beer.html?id=${currentBeer.id}`);
 });
 
 $("#removeBeer").click(function(){
     $.ajax({
-        url: "rest/beers/" + currentBeer.id,
+        url: `rest/beers/${currentBeer.id}`,
         type: 'DELETE',
         success: redirectToPub,
       });

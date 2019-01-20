@@ -36,4 +36,9 @@ public class RestaurantService {
         em.remove(restaurant);
     }
 
+    public void updateRestaurent(Restaurant restToUpdate){
+        Restaurant updatedRest = em.merge(restToUpdate);
+        em.persist(updatedRest);
+    }
+
 }
