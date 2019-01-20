@@ -18,7 +18,7 @@ $(document).ready(function() {
     // load beers for particular restaurant
     $.get("rest/beers?rest_id=" + id, function(beers, status) {
         beers.forEach(beer => {
-            $('#beers').append("<li><a href=./beer-detail.html?id=" + beer.id + ">" + beer.name + "</a> " + beer.brewery + "</li>");
+            $('#beers').append(`<li><a href=./beer-detail.html?id=${beer.id}>${beer.name}</a>${beer.brewery}</li>`);
         });
     });
 
@@ -35,7 +35,7 @@ $('#updatePub').click(function(){
 // delete pub button handler
 $("#removePub").click(function() {
     $.ajax({
-        url: "rest/restaurants/" + currentPub.id,
+        url: `rest/restaurants/${currentPub.id}`,
         type: 'DELETE',
         success: redirectToPub,
       });
@@ -43,5 +43,5 @@ $("#removePub").click(function() {
 
 // add new beer button handler
 $("#addBeer").click(function() {
-    window.location.replace("new-beer.html?rest_id=" + currentPub.id);
+    window.location.replace(`new-beer.html?rest_id=${currentPub.id}`);
 });
