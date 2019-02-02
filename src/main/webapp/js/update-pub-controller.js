@@ -17,7 +17,7 @@ $("#updatePubForm").submit(function(event) {
         url:`${postUrl}/${pubId}`,
         type: 'PUT',
         data: formData,
-        success: window.location.replace(`pub-detail.html?id=${pubId}`)
+        success: FUNCTIONS.redirectToPage(`pub-detail.html?id=${pubId}`)
     });
 });
     

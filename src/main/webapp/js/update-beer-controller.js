@@ -25,7 +25,7 @@ $("#updateBeerForm").submit(function(event) {
         url:`${postUrl}/${beerId}`,
         type: 'PUT',
         data: formData,
-        success: window.location.replace(`beer-detail.html?id=${beerId}`)
+        success: FUNCTIONS.redirectToPage(`beer-detail.html?id=${beerId}`)
     });
 });
     

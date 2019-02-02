@@ -44,3 +44,7 @@ FUNCTIONS.getURLParameter = function(sParam) {
         }
     }
 }
+
+FUNCTIONS.redirectToPage = function(page) {
+    window.location.replace(page);
+}

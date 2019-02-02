@@ -13,22 +13,20 @@ $(document).ready(function() {
     });
 });
 
-function redirectToPub(){
-    window.location.replace(`pub-detail.html?id=${currentBeer.restaurant.id}`);
-}
-
+// update beer button handler
 $('#updateBeer').click(function(){
-    window.location.replace(`update-beer.html?id=${currentBeer.id}`);
+    FUNCTIONS.redirectToPage(`update-beer.html?id=${currentBeer.id}`);
 });
 
+// remove beer button handler
 $("#removeBeer").click(function(){
     $.ajax({
         url: `rest/beers/${currentBeer.id}`,
         type: 'DELETE',
-        success: redirectToPub,
+        success: FUNCTIONS.redirectToPage(`pub-detail.html?id=${currentBeer.restaurant.id}`),
       });
 });
 
 $("#backToPub").click(function(){
-    redirectToPub();
+    FUNCTIONS.redirectToPage(`pub-detail.html?id=${currentBeer.restaurant.id}`);
 });
