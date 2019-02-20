@@ -2,8 +2,12 @@ package tremes.beerdog.controller;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.validation.constraints.NotBlank;
 import javax.ws.rs.*;
-import javax.ws.rs.core.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.net.URI;
 import java.util.List;
 
@@ -42,7 +46,7 @@ public class RestaurantResource {
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addRestaurant(@FormParam("name") String name, @FormParam("street") String street, @FormParam("zipcode") String zipcode,
+    public Response addRestaurant(@FormParam("name") @NotBlank(message = "Pub name must not be empty!") String name, @FormParam("street") String street, @FormParam("zipcode") String zipcode,
                                   @FormParam("city") String city) {
         Address newAddress = new Address(street, city, zipcode);
         Restaurant newRestaurant = new Restaurant(name, newAddress);
@@ -56,10 +60,12 @@ public class RestaurantResource {
     @PUT
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateRestaurant(@FormParam("name") String name, @FormParam("street") String street, @FormParam("zipcode") String zipcode,
+    public Response updateRestaurant(@FormParam("name") @NotBlank(message = "Pub name must not be empty!") String name, @FormParam("street") String street, @FormParam("zipcode") String zipcode,
                                      @FormParam("city") String city, @PathParam("id") Long id) {
-
         Restaurant restToUpdate = restaurantService.getRestaurantById(id);
+        if (restToUpdate == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
         restToUpdate.setName(name);
         Address address = restToUpdate.getAddress();
         address.setCity(city);

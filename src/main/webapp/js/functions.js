@@ -1,7 +1,7 @@
 
 var FUNCTIONS = {}
 
-FUNCTIONS.addNew = function(id, pageToGo){
+FUNCTIONS.addNew = function(id, pageToGo) {
 
     $(id).submit(function(event) {
         event.preventDefault(); //prevent default action 
@@ -13,6 +13,33 @@ FUNCTIONS.addNew = function(id, pageToGo){
             let uriArr  = location.split("/");
             let id = uriArr[uriArr.length - 1];
             window.location.replace(pageToGo + "?id=" + id);
+        }).catch(function (error) {
+           if(error.responseText.includes("arg0")) {
+               // we get [PARAMETER]\r[addRestaurant.arg0]\r[The Pub name must not be empty!]\r[]\r\r
+               const errMsg = error.responseText.split('\r')[2].replace(/[\[\]]/g,'');
+               $("#arg0err").text(errMsg);
+           }
+        });
+    });
+}
+
+FUNCTIONS.update = function(formId, itemId, pageToGo) {
+    $(formId).submit(function(event) {
+        event.preventDefault(); 
+        let postUrl = $(this).attr("action"); //get form action url
+        let formData = $(this).serialize(); //Encode form elements for submission
+        $.ajax({
+            url:`${postUrl}/${itemId}`,
+            type: 'PUT',
+            data: formData,
+        }).then( () => {
+           FUNCTIONS.redirectToPage(`${pageToGo}?id=${itemId}`);
+        }).catch( (error) => {
+            if(error.responseText.includes("arg0")) {
+                // we get [PARAMETER]\r[addRestaurant.arg0]\r[The Pub name must not be empty!]\r[]\r\r
+                const errMsg = error.responseText.split('\r')[2].replace(/[\[\]]/g,'');
+                $("#arg0err").text(errMsg);
+            }
         });
     });
 }
@@ -21,11 +48,11 @@ FUNCTIONS.addNew = function(id, pageToGo){
  * Send get request to provided URI and return the result.
  * @param {*} uri - uri to send get request to
  */
-FUNCTIONS.getAll = function(uri){
+FUNCTIONS.getAll = function(uri) {
     return $.get(uri);
 }
 
-FUNCTIONS.getById = function(url, id){
+FUNCTIONS.getById = function(url, id) {
    return $.get(url + "/" + id);
 }
 

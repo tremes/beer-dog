@@ -17,16 +17,4 @@ FUNCTIONS.getById("rest/beers", beerId).done(function(beer){
     });
 });
 
-$("#updateBeerForm").submit(function(event) {
-    event.preventDefault(); //prevent default action 
-    let postUrl = $(this).attr("action"); //get form action url
-    let formData = $(this).serialize(); //Encode form elements for submission
-    $.ajax({
-        url:`${postUrl}/${beerId}`,
-        type: 'PUT',
-        data: formData,
-        success: FUNCTIONS.redirectToPage(`beer-detail.html?id=${beerId}`)
-    });
-});
-    
-
+FUNCTIONS.update("#updateBeerForm", beerId, "beer-detail.html");

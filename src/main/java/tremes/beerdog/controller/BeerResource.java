@@ -2,6 +2,7 @@ package tremes.beerdog.controller;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.validation.constraints.NotBlank;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -70,7 +71,7 @@ public class BeerResource {
      */
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addBeer(@FormParam("beerName") String name, @FormParam("brewery") String brewery, @FormParam("pubs") Long id) {
+    public Response addBeer(@FormParam("beerName") @NotBlank(message = "Beer name must not be empty!") String name, @FormParam("brewery") String brewery, @FormParam("pubs") Long id) {
         Restaurant restaurant = restaurantService.getRestaurantById(id);
         Beer beer = new Beer(name, brewery, restaurant);
         beerService.addNew(beer);
@@ -82,8 +83,11 @@ public class BeerResource {
     @PUT
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateBeer(@FormParam("beerName") String name, @FormParam("brewery") String brewery, @PathParam("id") Long id, @FormParam("pubs") Long restaurantId){
+    public Response updateBeer(@FormParam("beerName") @NotBlank(message = "Beer name must not be empty!") String name, @FormParam("brewery") String brewery, @PathParam("id") Long id, @FormParam("pubs") Long restaurantId){
         Beer beerToUpdate = beerService.getBeerById(id);
+        if (beerToUpdate == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
         beerToUpdate.setName(name);
         beerToUpdate.setBrewery(brewery);
         beerToUpdate.setRestaurant(restaurantService.getRestaurantById(restaurantId));
